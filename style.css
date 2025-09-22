@@ -1,0 +1,46 @@
+header {
+  background-color: lightgrey; /* background en gris clair !!! A MODIFIER PAR LA SUITE QUAND ON AURA UN VRAI DESIGN !!!*/
+  display: flex; /*mettre sur une meme ligne */
+  justify-content: space-between; /* on espace les 3 pour pas que ca soit collé */
+  align-items: center; /*pour alligner au milieu la barre qui contient le logo, la recherche et l'utilisateur */
+}
+
+header .logo {
+  font-size: 40px; 
+}
+
+header .search {
+  text-align: center;
+}
+
+header .search input {
+  width: 80%;
+  font-size: 15px;
+}
+
+header .user {
+  font-size: 17px;
+  text-align: right;
+}
+
+table {
+  width: 100%;
+}
+
+th {
+  background-color: lightgrey;
+}
+
+.welcome {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.welcome h1 {
+  margin: 0;
+}
+
+.welcome .date {
+  font-size: 20px;
+}
