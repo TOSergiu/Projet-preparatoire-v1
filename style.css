@@ -21,7 +21,11 @@ header .search input {
   width: 80%;
   font-size: 15px;
   font-style: italic;
+  border-radius: 12px;
+  border: 1px solid rgb(69, 6, 90);
+  padding: 5px 10px;
 }
+
 
 header .user {
   font-size: 17px;
@@ -62,8 +66,11 @@ th {
 .incident {
   text-align: center;
   color:rgb(69, 6, 90) ;
+  text-decoration: underline;
+
 }
 
 .incident_now {
-  color:rgb(69, 6, 90)
+  color:rgb(69, 6, 90);
+  text-decoration: underline;
 }
