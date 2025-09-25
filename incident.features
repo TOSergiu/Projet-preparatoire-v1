@@ -1,0 +1,8 @@
+Fonctionnalité: Signaler un incident
+
+Les utilisateurs peuvent signaler un accident à Ottignies-Louvain-la-Neuve sur le site
+
+Scénario: Un utilisateur signale un accident à Ottignies-Louvain-la-Neuve
+    Étant donné que l'utilisateur est sur la page "Signaler un incident"
+    Quand il remplit le formulaire
+    Alors l'accident est enregistré sur le site

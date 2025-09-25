@@ -1,0 +1,7 @@
+Fonctionnalité: Page principale du site
+
+Lorsque l'utilisateur arrive sur le site, il est redirigé vers la page principale et peut accéder aux différentes fonctionnalités du site
+
+Scénario: L'utilisateur arrive sur le site
+    Étant donné qu'il est sur le site
+    Alors il est sur la page principale
