@@ -93,11 +93,12 @@ th {
   padding: 50px 10px;
 }
 
-.valider {
+.valider button {
   background-color: rgb(69, 6, 90);
-  width: 4%;
-  padding: 10px 10px;
+  color: white;
   border-radius: 12px;
+  padding: 10px 20px;
   font-size: 16px;
-  margin: 2px;
+  box-shadow: 0 4px 8px black;
+  cursor: pointer;
 }
