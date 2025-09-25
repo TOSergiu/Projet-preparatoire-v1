@@ -31,6 +31,7 @@ header .user {
   font-size: 17px;
   text-align: right;
   margin-right: 2%;
+  color:rgb(255, 255, 255);
 }
 
 table {
@@ -65,7 +66,7 @@ th {
 
 .incident {
   text-align: center;
-  color:rgb(69, 6, 90) ;
+  color:rgb(69, 6, 90);
   text-decoration: underline;
 
 }
@@ -100,4 +101,16 @@ th {
   border-radius: 12px;
   font-size: 16px;
   margin: 2px;
+}
+
+.lien {
+    color: #ffffff;
+    cursor: pointer;
+    text-decoration: none;
+    font-style: italic;
+}
+
+.button {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
 }
