@@ -1,12 +1,16 @@
 header {
-  background-color: lightgrey; /* background en gris clair !!! A MODIFIER PAR LA SUITE QUAND ON AURA UN VRAI DESIGN !!!*/
+  color: rgb(255, 255, 255);
+  border-radius: 12px; /*pour mettre les bords du cadre arrondis */
+  background-color: rgb(69, 6, 90); /* background en mauve !!! A MODIFIER PAR LA SUITE SI ON VEUT UN AUTRE DESIGN !!!*/
   display: flex; /*mettre sur une meme ligne */
   justify-content: space-between; /* on espace les 3 pour pas que ca soit collé */
   align-items: center; /*pour alligner au milieu la barre qui contient le logo, la recherche et l'utilisateur */
 }
 
 header .logo {
-  font-size: 40px; 
+  font: italic small-caps bold 40px/60px Georgia, serif;
+  margin-left: 2%;
+  
 }
 
 header .search {
@@ -16,31 +20,84 @@ header .search {
 header .search input {
   width: 80%;
   font-size: 15px;
+  font-style: italic;
+  border-radius: 12px;
+  border: 1px solid rgb(69, 6, 90);
+  padding: 5px 10px;
 }
+
 
 header .user {
   font-size: 17px;
   text-align: right;
+  margin-right: 2%;
 }
 
 table {
   width: 100%;
+  color: rgb(255, 255, 255);
+  font-style: italic;
 }
 
 th {
-  background-color: lightgrey;
+  background-color: rgb(69, 6, 90);
+  border-radius: 12px; /*pour mettre les bords du cadre arrondis */
 }
 
 .welcome {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column; /* aligne les éléments en colonne */
+  border: 2px solid rgb(69, 6, 90);
+  border-radius: 12px; /*pour mettre les bords du cadre arrondis */
+  padding: 20px;
+  margin: auto; /*pour mettre au milieu le cadre */
+  max-width: 900px; /* donner une taille max au cadre */
+  background-color: #ffffff;
+  color: rgb(69, 6, 90);
+  box-shadow: 0 4px 10px rgba(69, 6, 90, 0.2); /*Donner une ombre au cadre RETIRER? CAR CA CHANGE PAS TROP A VOIR MAIS JAIME BIEN*/
 }
 
-.welcome h1 {
-  margin: 0;
+
+.date {
+  text-align: right;
+  font-size: 17px;
 }
 
-.welcome .date {
-  font-size: 20px;
+.incident {
+  text-align: center;
+  color:rgb(69, 6, 90) ;
+  text-decoration: underline;
+
+}
+
+.incident_now {
+  color:rgb(69, 6, 90);
+  text-decoration: underline;
+}
+
+.adress input{
+  width: 30%;
+  font-size: 15px;
+  font-style: italic;
+  border-radius: 12px;
+  border: 1px solid rgb(69, 6, 90);
+  padding: 5px 10px;
+}
+
+.description input{
+  width: 30%;
+  font-size: 15px;
+  font-style: italic;
+  border-radius: 12px;
+  border: 1px solid rgb(69, 6, 90);
+  padding: 50px 10px;
+}
+
+.valider {
+  background-color: rgb(69, 6, 90);
+  width: 4%;
+  padding: 10px 10px;
+  border-radius: 12px;
+  font-size: 16px;
+  margin: 2px;
 }
