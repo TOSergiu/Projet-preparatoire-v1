@@ -7,57 +7,62 @@
 
 
   <style>
-    .big{
-      border: 2px solid #6c0f83;
-      border-radius: 8px;
+    .contain {
       display: flex;
       flex-direction: column;
+      border-radius: 5px;
+      border-width: 3px;
+      border: 2px solid #6c0f83;
     }
 
-    .contain {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      padding: 10px;
+    .incident_content {
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
     }
-    .left input{
+
+    .incident_content input{
       width: 95%;
       height: 30px;
       align-items: center;
-      border-radius: 10px;
-      border: 1px solid #6c0f83;
-    }
-    .right input{
-      width: 95%;
-      height: 30px;
-      align-items: center;
-      border-radius: 10px;
-      border: 1px solid #6c0f83;
     }
 
-    .description{
-      width: 100%;
-      padding: 10px;
-      box-sizing: border-box;
-
+    .incident_content div{
+      flex:1
     }
 
-
-    .description textarea{
-      resize: none;
-      width: 100%;
-      height: 120px;
+    .incident_content input{
+      padding-left: 10px;
+      width: 96%;
       font-size: 15px;
       font-style: italic;
       border-radius: 12px;
-      border: 3px solid rgb(69, 6, 90);
+      border: 1px solid rgb(69, 6, 90);
+    }
+
+
+    .description{
+      margin-top: 20px;
+      width: 80%;
+      margin-left: auto;
+    }
+
+
+    .description input{
+      width: 100%;
+      font-size: 15px;
+      font-style: italic;
+      border-radius: 12px;
+      border: 1px solid rgb(69, 6, 90);
 
     }
     .valider {
-      display: inline-block;
+      align-self: flex-end;
       background-color: rgb(69, 6, 90);
+      padding: 10px 10px;
       border-radius: 12px;
       margin: 5px;
-      align-self: flex-end;
+      text-align: center;
     }
     .valider button{
       background-color: rgb(69, 6, 90);
@@ -68,7 +73,6 @@
       cursor: pointer;
       border: none;
     }
-
 
     .box{
       margin-right: 20px;
@@ -153,9 +157,9 @@
   </section>
 
 
-  <div class="big">
-    <div class="contain">
-      <div class="left">
+  <div style="background-color: aqua;" class="contain">
+    <div style="background-color: bisque;"  class="incident_content">
+      <div style="background-color: #6c0f83;">
         <p>Sujet :
           <input type="text" name="Sujet" placeholder="Sujet de l'incident">
         </p>
@@ -168,7 +172,7 @@
       </div>
       
   
-      <div class="right">
+      <div>
         <p>Date :
           <input type="date" name="Date" placeholder="DD/MM/YY">
         </p>
@@ -179,18 +183,15 @@
           <input type="text" nmae="Ville" placeholder="Ville">
         </p>
       </div>
-    </div>
   
+    </div>
     <div class="description">
-      <textarea placeholder="Decriver l'incident"></textarea>
+      <input type="text" placeholder="Décrivez l'incident">
     </div>
     <div class="valider">
       <button type="button">Valider</button>
-
     </div>
-
   </div>
-  
 </main>
 
 </body>
