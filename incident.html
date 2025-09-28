@@ -5,15 +5,34 @@
   <title>StreetSOS - Incidents</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <header>
-  <div class="logo"><a href="home.html" class="lien">StreetSOS</a></div>
+  <div class="logo">
+    <a href="home.html" class="lien">StreetSOS</a>
+  </div>
+
   <div class="search">
     <input type="text" placeholder="Rechercher...">
   </div>
-  <div class="user"><a href="log_in.html" class="lien">Compte de l'utilisateur</a></div>
+
+  <div class="box">
+    <ul class="nav">
+      <li class="item">
+        <span>Connexion</span>
+        <ul class="dropdown">
+          <li><a href="log_in.html">Connecter</a></li>
+          <li><a href="sign_up.html">S'inscrire</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+
+
 </header>
+
 
 <main>
   <p>Alertez les habitants d'Ottignies-Louvain-la-Neuve sur les différents incidents afin d'améliorer leur quotidien !</p>
@@ -22,15 +41,45 @@
     <h2><a href="home.html">Retourner à la page home</a></h2>
   </section>
 
-  <section>
-    <div class="adress">
-      <input type="text" placeholder="Entrez l'adresse">
+
+  <div class="big">
+    <div class="contain">
+      <div class="left">
+        <p>Sujet :
+          <input type="text" name="Sujet" placeholder="Sujet de l'incident">
+        </p>
+        <p>Temps :
+          <input type="time" name="Temps" step="1" value="00:00:00">
+        </p>
+        <p>Rue:
+          <input type="text" name="Rue" placeholder="place de science">
+        </p>
+      </div>
+      
+  
+      <div class="right">
+        <p>Date :
+          <input type="date" name="Date" placeholder="DD/MM/YY">
+        </p>
+        <p>Code-postal :
+          <input type="text" name="Code-postal" placeholder="XXXX">
+        </p>
+        <p>Ville :
+          <input type="text" nmae="Ville" placeholder="Ville">
+        </p>
+      </div>
     </div>
+  
     <div class="description">
-      <input type="text" placeholder="Décrivez l'incident">
+      <textarea placeholder="Decriver l'incident"></textarea>
     </div>
     <div class="valider">
       <button type="button">Valider</button>
     </div>
-  </section>
+
+  </div>
+  
 </main>
+
+</body>
+</html>
