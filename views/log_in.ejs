@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Se connecter</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<header>
+  <div class="logo"><a href="/" class="lien">StreetSOS</a></div>
+  <div class="search">
+    <input type="text" placeholder="Rechercher...">
+  </div>
+  <div class="user">
+    <% if(user){ %>
+      <span>Bonjour, <%= user %></span>
+    <% }else{ %>
+      <div class="box">
+        <ul class="nav">
+          <li class="item">
+            <span>Connexion</span>
+            <ul class="dropdown">
+              <li><a href="/signIn">Connecter</a></li>
+              <li><a href="/signUp">S'inscrire</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    <% } %>
+  </div>
+</header>
+<html>
+
+
+<form action="/log_in" method="POST" style="text-align:center;">
+  <h1>Connexion</h1>
+
+        <p>Nom du compte :
+            <input type="text" name="username" placeholder="Nom du compte">
+        </p>
+
+        <p>Mot de passe :
+            <input type="password" name="password" placeholder="Mot de passe">
+        </p>
+    
+    <button type="submit" class="button">Se connecter</button>
+
+    <button type="button"><a href="/signUp" class="loginButton">Pas de compte ?</a></button>
+</form>
+
+</body>
+</html>
