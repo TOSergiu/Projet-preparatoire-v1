@@ -45,47 +45,47 @@
   <p>Alertez les habitants d'Ottignies-Louvain-la-Neuve sur les différents incidents afin d'améliorer leur quotidien !</p>
   
   <section>
-    <h2><a href="/">Retourner à la page home</a></h2>
+    <h2><a href="/">Retourner à la page home</a></h2> <!--Lien disponible pour retourner à la page home-->
   </section>
 
-
+<form action="/incident" method="POST">
   <div class="big">
     <div class="contain">
-      <div class="left">
+      <div class="left"> <!--A gauche du tableau on affiche le sujet l'heure et la rue-->
         <p>Sujet :
-          <input type="text" name="Sujet" placeholder="Sujet de l'incident">
+          <input type="text" name="sujet" placeholder="Sujet de l'incident" required>
         </p>
         <p>Temps :
-          <input type="time" name="Temps" step="1" value="00:00:00">
+          <input type="time" name="temps" step="1" value="00:00:00" required>
         </p>
         <p>Rue:
-          <input type="text" name="Rue" placeholder="place de science">
+          <input type="text" name="rue" placeholder="place de science" required>
         </p>
       </div>
       
-  
-      <div class="right">
+      <div class="right"> <!--A droite du tableau on affiche date ville et code postal-->
         <p>Date :
-          <input type="date" name="Date" placeholder="DD/MM/YY">
+          <input type="date" name="date" placeholder="DD/MM/YY" required>
         </p>
         <p>Code-postal :
-          <input type="text" name="Code-postal" placeholder="XXXX">
+          <input type="text" name="codePostal" placeholder="XXXX" required>
         </p>
         <p>Ville :
-          <input type="text" nmae="Ville" placeholder="Ville">
+          <input type="text" name="ville" placeholder="Ville" required>
         </p>
       </div>
     </div>
   
-    <div class="description">
-      <textarea placeholder="Decriver l'incident"></textarea>
+    <div class="description"> <!--Classe pour décrire l'incident-->
+      <textarea name="description" placeholder="Décrire l'incident" required></textarea>
     </div>
-    <div class="valider">
-      <button type="button">Valider</button>
+    <div class="valider"> <!--bouton pour soumettre l'incident-->
+      <button type="submit">Valider</button>
     </div>
-
   </div>
-  
+</form>
+
+
 </main>
 
 </body>
