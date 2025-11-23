@@ -25,21 +25,21 @@ describe('sign_up route', () => {
     });
 
     test('Creating a new account with existing username', async () => {
-        const existing = await User.findOne({ username: 'JoeB' });
+        const existing = await User.findOne({ username: 'NicholasD' });
         if (!existing) {
-            await User.create({ username: 'JoeB', password: '123' });
+            await User.create({ username: 'NicholasD', password: '123' });
         }
 
         const res = await agent
             .post('/sign_up')
             .send({
-                nom: 'Joe', 
-                prenom: 'Bastianich',
-                username: 'JoeB',
+                nom: 'Nicholas', 
+                prenom: 'DiGiovanni ',
+                username: 'NicholasD',
                 password: 'Password1!',
-                email: 'joe@gmail.com',
+                email: 'Nick@gmail.com',
             })
-            .expect(200);
+            .expect(200); 
 
         expect(res.text).toContain('Utilisateur déjà existant');
     });

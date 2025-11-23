@@ -99,17 +99,28 @@ app.post('/incident', async (req, res) => {
   }
 });
 
+// Page sign_up
 app.get('/sign_up', (req, res) => {
     res.render('sign_up', { user: req.session.username, error: null });
 });
 
+const checkUserInput = require('./checkInput.js');
+
 app.post('/sign_up', async (req, res) => {
     const { username, password, nom, prenom, email } = req.body;
 
-    if (!username || !password) {
-        return res.render('sign_up', { user: req.session.username, error: 'Remplissez tous les champs' });
+    if (!checkUserInput.isValidUsername(username)) {
+        return res.render('sign_up', { user: req.session.username, error: 'Le nom d’utilisateur doit avoir au moins 6 caractères' });
     }
 
+    if (!checkUserInput.isValidPassword(password)) {
+        return res.render('sign_up', { user: req.session.username, error: 'Mot de passe invalide (7+ chars, majuscule, chiffre, symbole)' });
+    }
+
+    if (!checkUserInput.isValidEmail(email)) {
+        return res.render('sign_up', { user: req.session.username, error: 'Adresse email invalide' });
+    }
+    
     try {
         const existingUser = await User.findOne({ username });
         if (existingUser) {
@@ -119,7 +130,7 @@ app.post('/sign_up', async (req, res) => {
         const newUser = new User({ username, password, nom, prenom, email });
         await newUser.save();
 
-        req.session.username = username; // log in immediately
+        req.session.username = username; 
         res.redirect('/');
     } catch (err) {
         console.error(err);
@@ -127,12 +138,12 @@ app.post('/sign_up', async (req, res) => {
     }
 });
 
-// Login page
+
+// Page log_in 
 app.get('/log_in', (req, res) => {
     res.render('log_in', { user: req.session.username, error: null });
 });
 
-// Handle Login form
 app.post('/log_in', async (req, res) => {
     const { username, password } = req.body;
 
@@ -152,6 +163,6 @@ app.post('/log_in', async (req, res) => {
 
 module.exports = { app, User, Incident};
 
-app.listen(3000, () => {
-  console.log('Serveur démarré sur http://localhost:3000'); //pour confirmer que le serveur démarre bien
-}); 
+if (require.main === module) {
+    app.listen(3000, () => console.log('Serveur démarré sur http://localhost:3000')); //pour confirmer que le serveur démarre bien
+}
