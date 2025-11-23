@@ -36,6 +36,10 @@
 <form action="/sign_up" method="POST"style="text-align:center;">
     <h1>Créer un compte</h1>
 
+    <% if(error){ %>
+    <p class="error" style="color:red;"><%= error %></p>
+    <% } %>
+
         <p>Nom :
             <input type="text" name="nom" placeholder="Nom">
         </p>

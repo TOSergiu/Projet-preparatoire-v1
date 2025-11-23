@@ -150,6 +150,8 @@ app.post('/log_in', async (req, res) => {
     }
 });
 
+module.exports = { app, User, Incident};
+
 app.listen(3000, () => {
   console.log('Serveur démarré sur http://localhost:3000'); //pour confirmer que le serveur démarre bien
 }); 
