@@ -8,11 +8,6 @@ describe('log_in route', () => {
         agent = request.agent(app);
     });
 
-    beforeEach(async () => {
-        await User.deleteMany({});
-        agent = request.agent(app);
-    });
-
     test('Test for correct log in', async () => {
         await User.create({ username: 'testuser', password: '123' });
 

@@ -6,6 +6,9 @@ const session = require('express-session');
 
 const app = express(); //pour notre serveur
 
+// Pour éviter d'utiliser la même base de données dans nos tests 
+const dbName = process.env.NODE_ENV === 'test' ? 'streetSOS_test' : 'streetSOS';
+
 // connexion à la base mongodb
 mongoose.connect('mongodb://127.0.0.1:27017/streetSOS')
 .then(() => console.log('MongoDB connecté'))
@@ -99,7 +102,7 @@ app.post('/incident', async (req, res) => {
   }
 });
 
-// Page sign_up
+// Page
 app.get('/sign_up', (req, res) => {
     res.render('sign_up', { user: req.session.username, error: null });
 });
