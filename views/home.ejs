@@ -18,19 +18,18 @@
     <div class="user">
     <% if(user){ %>
       <span>Bonjour, <%= user %></span>
-    <% }else{ %>
+    <% } %>
       <div class="box">
         <ul class="nav">
           <li class="item">
             <span>Connexion</span>
             <ul class="dropdown">
-              <li><a href="/signIn">Connecter</a></li>
-              <li><a href="/signUp">S'inscrire</a></li>
+              <li><a href="/log_in">Connecter</a></li>
+              <li><a href="/sign_up">S'inscrire</a></li>
             </ul>
           </li>
         </ul>
-      </div>
-    <% } %>
+      </div> 
   </div>
   </header>
 </nav>
@@ -70,7 +69,7 @@
             <tr> <!--Si incident alors on ajoute la description, date , adresse etc-->
               <td><%= incident.description %></td>
               <td><%= incident.rue %>, <%= incident.codePostal %> <%= incident.ville %></td>
-              <td><%= incident.rapportePar || 'En cours de développement' %></td>
+              <td><%= incident.rapportePar || user %></td>
               <td><%= new Date(incident.date).toLocaleDateString() %></td>
             </tr>
           <% }) %>
