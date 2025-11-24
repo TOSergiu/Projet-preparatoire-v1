@@ -7,7 +7,7 @@ const session = require('express-session');
 const app = express(); //pour notre serveur
 
 // Pour éviter d'utiliser la même base de données dans nos tests 
-const dbName = process.env.NODE_ENV === 'test' ? 'streetSOS_test' : 'streetSOS';
+const dbName = process.env.NODE_ENV === 'test' ? 'streetsos_test' : 'streetsos';
 
 // connexion à la base mongodb
 mongoose.connect(`mongodb://127.0.0.1:27017/${dbName}`)

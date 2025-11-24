@@ -9,9 +9,9 @@ const mockIncidents = [
 
 describe("GET /search", () => {
 
-  // Avant tous les tests, on vide la collection et on insère des incidents de test
+  //avant de faire tous les tests on vide la collection et on insère des incidents de test
   beforeAll(async () => {
-    await Incident.deleteMany({}); // supprime tous les incidents existants
+    await Incident.deleteMany({}); //supprime tous les incidents existants
     await Incident.insertMany([
       { sujet: "Accident voiture", description: "Collision à Paris", ville: "Paris" },
       { sujet: "Inondation", description: "Sous-sol inondé", ville: "Lyon" },
@@ -19,7 +19,7 @@ describe("GET /search", () => {
     ]);
   });
 
-  // Vérifie que la route renvoie un statut HTTP 200
+  //on vérifie que la route renvoie un statut HTTP 200
   test("doit renvoyer 200 OK", async () => {
     const response = await request(app)
       .get('/search')
@@ -27,7 +27,7 @@ describe("GET /search", () => {
     expect(response.status).toBe(200);
   });
 
-  // Vérifie que le mot-clé renvoie le bon incident
+  //on vérifie que le mot-clé renvoie le bon incident
   test("doit contenir l'incident correspondant au mot-clé", async () => {
     const response = await request(app)
       .get('/search')
@@ -36,7 +36,7 @@ describe("GET /search", () => {
     expect(response.text).toContain("Accident grave");
   });
 
-  // Vérifie que la recherche n'est pas sensible à la casse
+  //on vérifie que la recherche n'est pas sensible à la casse
   test("la recherche doit être insensible à la casse", async () => {
     const response = await request(app)
       .get('/search')
@@ -44,13 +44,13 @@ describe("GET /search", () => {
     expect(response.text).toContain("Inondation");
   });
 
-  // Vérifie que les résultats sont triés par pertinence (TF-IDF décroissant)
+  //on vérifie que les résultats sont triés par pertinence (TF-IDF décroissant)
   test("les résultats doivent être classés par pertinence", async () => {
     const response = await request(app)
       .get('/search')
       .query({ keyword: "Accident" });
 
-    // On récupère tous les titres des incidents renvoyés
+    //on récupère tous les titres des incidents renvoyés
     const regex = /<h3>Sujet: (.*?)<\/h3>/g;
     let match;
     const sujets = [];
@@ -58,7 +58,7 @@ describe("GET /search", () => {
       sujets.push(match[1]);
     }
 
-    // On s'attend à ce que "Accident grave" (plus de occurrences du mot) apparaisse avant "Accident voiture"
+    //on s'attend à ce que "Accident grave" (plus de occurrences du mot) apparaisse avant "Accident voiture"
     expect(sujets.indexOf("Accident grave")).toBeLessThan(sujets.indexOf("Accident voiture"));
   });
 
