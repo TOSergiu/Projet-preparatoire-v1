@@ -1,7 +1,7 @@
 const checkUserInput = require('../checkInput.js');
 
 
-// Test pour les noms
+//test pour les noms
 describe("isValidUsername", () =>{
     test("Returns false when username is shorter than 6 characters", () => {
         expect(checkUserInput.isValidUsername("abcde")).toBe(false);
@@ -23,7 +23,7 @@ describe("isValidUsername", () =>{
     });
 });
 
-// Tests pour les mots de passses
+//tests pour les mots de passses
 describe("isValidPassword", () =>{
     test("Returns false when password is shorter than 7 characters", () => {
         expect(checkUserInput.isValidPassword("abcde")).toBe(false);
@@ -54,7 +54,7 @@ describe("isValidPassword", () =>{
     });
 });
 
-// Tests pour l'address email
+//tests pour l'address email
 describe("isValidEmail", () =>{
     test("Returns false when email has less than 5 characters", () => {
         expect(checkUserInput.isValidEmail("ab")).toBe(false);

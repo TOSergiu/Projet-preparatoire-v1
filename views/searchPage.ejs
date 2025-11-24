@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>StreetSOS - Incidents</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    <a href="/" class="lien">StreetSOS</a>
+  </div>
+
+  <form action="/search" method="GET" class="search">
+    <input type="text" name="keyword" placeholder="Rechercher..." required>
+  </form> 
+  
+
+  <div class="user">
+  <% if(user){ %>
+    <span>Bonjour, <%= user %></span>
+  <% }else{ %>
+    <div class="box">
+      <ul class="nav">
+        <li class="item">
+          <span>Connexion</span>
+          <ul class="dropdown">
+            <li><a href="/signIn">Connecter</a></li>
+            <li><a href="/signUp">S'inscrire</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  <% } %>
+  </div>
+  
+
+
+
+</header>
+
+<body>
+  <h1>Top 10 Search Results</h1>
+
+  <% if (top10.length === 0) { %>
+    <p>No results found.</p>
+  <% } else { %>
+    <% top10.forEach(item => { %>
+      <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+        <h3>Sujet: <%= item.doc.sujet %></h3>
+        <p>Description: <%= item.doc.description %></p>
+        <p>Rue: <%= item.doc.rue %>, Ville: <%= item.doc.ville %></p>
+      </div>
+    <% }) %>
+  <% } %>
+</body>
+</html>

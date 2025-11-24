@@ -13,9 +13,10 @@
     <a href="/" class="lien">StreetSOS</a>
   </div>
 
-  <div class="search">
-    <input type="text" placeholder="Rechercher...">
-  </div>
+  <form action="/search" method="GET" class="search">
+    <input type="text" name="keyword" placeholder="Rechercher..." required>
+  </form> 
+  
 
   <div class="user">
     <% if(user){ %>
@@ -65,7 +66,7 @@
       
       <div class="right"> <!--A droite du tableau on affiche date ville et code postal-->
         <p>Date :
-          <input type="date" name="date" placeholder="DD/MM/YY" required>
+          <input type="date" name="date" placeholder="MM/DD/YY" required>
         </p>
         <p>Code-postal :
           <input type="text" name="codePostal" placeholder="XXXX" required>

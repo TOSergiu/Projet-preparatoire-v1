@@ -7,7 +7,7 @@ const session = require('express-session');
 const app = express(); //pour notre serveur
 
 // Pour éviter d'utiliser la même base de données dans nos tests 
-const dbName = process.env.NODE_ENV === 'test' ? 'streetSOS_test' : 'streetSOS';
+const dbName = process.env.NODE_ENV === 'test' ? 'streetsos_test' : 'streetsos';
 
 // connexion à la base mongodb
 mongoose.connect(`mongodb://127.0.0.1:27017/${dbName}`)
@@ -89,6 +89,101 @@ app.get('/', async (req, res) => {
 app.get('/incident', requireLogin, (req, res) => {
     res.render('incident', { user: req.session.username });
 });
+
+
+app.get('/search',async(req,res)=>{
+  let user = null;
+  let word = req.query.keyword;
+  
+  function countDocumentWord(keyword,document){
+    let word = String(keyword);
+    let count = 0;
+    let text = "";
+    for(let key in document){
+      text += String(document[key])+ " ";
+    }
+    let words = text.split(" ");
+
+    for(let mot of words){
+      if(word.toLowerCase() === mot.toLowerCase()){
+        count ++;
+      }
+    }
+    return count ;
+  }
+
+  function countWord(document){
+    let count = 0;
+    let text = "";
+
+    for(let key in document){
+      text += String(document[key])+ " ";
+    }
+    let words = text.split(" ");
+
+    for(let mot of words){
+      count ++;
+    }
+    return count ;
+  }
+
+  async function countDoc(){
+    let doc = await Incident.find({});
+    return doc.length;
+  }
+
+  async function countCollectionWord(keyword){
+    let word = String(keyword);
+    let count = 0;
+
+    let docs = await Incident.find({});
+
+    for(let doc of docs){
+      let obj = doc.toObject();
+      for(let key in obj){
+        if(word.toLowerCase()===String(obj[key]).toLowerCase()){
+          count ++;
+          break;
+        }
+      }
+    }
+
+    return count ;
+  }
+
+  
+  function TF(keyword,document){
+    return(Math.log(1+(countDocumentWord(keyword,document)/countWord(document))));
+  }
+
+  async function IDF(keyword){
+    let alldocs = await countDoc();
+    let allCollectionWords = await countCollectionWord(keyword);
+    return(Math.log(alldocs/(allCollectionWords || 1)));
+  }
+
+
+  let txtArray = [];
+  let allText = await Incident.find({});
+  let idfValue = await IDF(word);
+  
+  for(let txt of allText){
+    let obj = txt.toObject();
+    let res = TF(word,obj)*idfValue;
+
+    let objc = { doc: obj, score: res };
+    txtArray.push(objc)
+  }
+
+  txtArray.sort((a, b) => b.score - a.score);
+
+  let top10 = txtArray.slice(0, 10);
+  
+
+
+  res.render('searchPage',{top10, user});
+})
+
 
 //route post pour ajouter un incident
 app.post('/incident', requireLogin, async (req, res) => {
