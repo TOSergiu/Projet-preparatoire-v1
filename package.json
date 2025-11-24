@@ -1,10 +1,10 @@
 {
   "name": "preparatoire",
   "version": "1.0.0",
-  "description": "## Nom du cours: Projet d'approfondissement en sciences informatiques",
+  "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -13,14 +13,13 @@
     "body-parser": "^2.2.0",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "fs": "^0.0.1-security",
+    "https": "^1.0.0",
     "mongoose": "^9.0.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TOSergiu/Projet-preparatoire-v1.git"
-  },
-  "bugs": {
-    "url": "https://github.com/TOSergiu/Projet-preparatoire-v1/issues"
-  },
-  "homepage": "https://github.com/TOSergiu/Projet-preparatoire-v1#readme"
+  "devDependencies": {
+    "jest": "^30.2.0",
+    "supertest": "^7.1.4"
+  }
 }
