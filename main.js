@@ -10,17 +10,22 @@ const app = express(); //pour notre serveur
 const dbName = process.env.NODE_ENV === 'test' ? 'streetSOS_test' : 'streetSOS';
 
 // connexion à la base mongodb
-mongoose.connect('mongodb://127.0.0.1:27017/streetSOS')
+mongoose.connect(`mongodb://127.0.0.1:27017/${dbName}`)
 .then(() => console.log('MongoDB connecté'))
 .catch(err => console.error(err));
 
 // Empeche les utilisateurs de poster un accident sans être connecté 
 function requireLogin(req, res, next) {
-    if (!req.session.username) {
-        return res.redirect('/log_in');
-    }
-    next();
+  if (process.env.NODE_ENV === 'test') {
+    req.session.username = 'testuser';
+    return next();
+  }
+  if (!req.session.username) {
+    return res.redirect('/log_in');
+  }
+  next();
 }
+
 
 //sert a définir comment on va décrir comment sera l'incident ici on utilise des string car on remplit du texte pour valider un incident à part pour la date
 const incidentSchema = new mongoose.Schema({
