@@ -69,6 +69,7 @@ app.get('/signIn', (req, res) => {
 
 
 app.get('/search',async(req,res)=>{
+  let user = null;
   let word = req.query.keyword;
   
   function countDocumentWord(keyword,document){
@@ -157,7 +158,7 @@ app.get('/search',async(req,res)=>{
   
 
 
-  res.render('searchPage',{ top10 });
+  res.render('searchPage',{top10, user});
 })
 
 
