@@ -9,3 +9,4 @@ Scénario: L'utilisateur arrive sur le site
     Alors is sera redirigé vers la page incident
     Si il clique sur "Compte de l'utilisateur"
     Alors is sera redirigé sur la page de connexion
+    L'utilisateur voit tous les incidents signalés du plus récent au plus ancien
