@@ -14,6 +14,14 @@ mongoose.connect('mongodb://127.0.0.1:27017/streetSOS')
 .then(() => console.log('MongoDB connecté'))
 .catch(err => console.error(err));
 
+// Empeche les utilisateurs de poster un accident sans être connecté 
+function requireLogin(req, res, next) {
+    if (!req.session.username) {
+        return res.redirect('/log_in');
+    }
+    next();
+}
+
 //sert a définir comment on va décrir comment sera l'incident ici on utilise des string car on remplit du texte pour valider un incident à part pour la date
 const incidentSchema = new mongoose.Schema({
   sujet: String,
@@ -73,13 +81,12 @@ app.get('/', async (req, res) => {
 });
 
 //on renvoit les pages pour ajouter incident
-app.get('/incident', (req, res) => {
-  let user = req.session.username || null;
-  res.render('incident', { user });
+app.get('/incident', requireLogin, (req, res) => {
+    res.render('incident', { user: req.session.username });
 });
 
 //route post pour ajouter un incident
-app.post('/incident', async (req, res) => {
+app.post('/incident', requireLogin, async (req, res) => {
   try {
     const { sujet, temps, rue, date, codePostal, ville, description } = req.body; //on remplit l'incident avec toutes les données
 
