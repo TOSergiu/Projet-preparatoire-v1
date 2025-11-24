@@ -10,9 +10,11 @@
 <nav>
   <header>
     <div class="logo">StreetSOS</div>
-    <div class="search">
-      <input type="search" placeholder="Rechercher...">
-    </div>
+
+    <form action="/search" method="GET" class="search">
+      <input type="text" name="keyword" placeholder="Rechercher..." required>
+    </form> 
+  
     <div class="user">
     <% if(user){ %>
       <span>Bonjour, <%= user %></span>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Search Results</title>
+</head>
+<body>
+  <h1>Top 10 Search Results</h1>
+
+  <% if (top10.length === 0) { %>
+    <p>No results found.</p>
+  <% } else { %>
+    <% top10.forEach(item => { %>
+      <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+        <h3>Sujet: <%= item.doc.sujet %></h3>
+        <p>Description: <%= item.doc.description %></p>
+        <p>Rue: <%= item.doc.rue %>, Ville: <%= item.doc.ville %></p>
+      </div>
+    <% }) %>
+  <% } %>
+</body>
+</html>
