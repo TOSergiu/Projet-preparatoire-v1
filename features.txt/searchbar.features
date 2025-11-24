@@ -3,8 +3,8 @@ Fonctionnalité : rechercher une information sur le site
 Les utilisateurs peuvent rechercher une information grâce à une barre de recherche dynamique.
 
 Scénario :
-Un utilisateur veut trouver une information à propos d'un incident signalé
-L'utilisateur recherche un mot précis dans la barre de recherche
-Ce mot peut être une adresse, un mot spécifique, une ville,...
-L'utilisateur appuie sur la touche entrer pour lancer une recherche
-L'utilisateur retrouve alors un classement des recherches les plus cohérentes en fonction de ce qu'il a recherché
+    Si un utilisateur veut trouver une information à propos d'un incident signalé
+    Alors l'utilisateur recherche un mot précis dans la barre de recherche
+    Alors Ce mot peut être une adresse, un mot spécifique, une ville,...
+    Quand L'utilisateur appuie sur la touche entrer pour lancer une recherche
+    Alors L'utilisateur retrouve un classement des recherches les plus cohérentes en fonction de ce qu'il a recherché
