@@ -2,13 +2,25 @@ const express = require('express'); //node
 const path = require('path'); //les chemins voir slide
 const mongoose = require('mongoose'); //pour travailler avec mongodb
 const bodyParser = require('body-parser'); //on parse les données des requetes
+const session = require('express-session');
 
 const app = express(); //pour notre serveur
 
+// Pour éviter d'utiliser la même base de données dans nos tests 
+const dbName = process.env.NODE_ENV === 'test' ? 'streetSOS_test' : 'streetSOS';
+
 // connexion à la base mongodb
-mongoose.connect('mongodb://localhost:27017/streetsos')
+mongoose.connect('mongodb://127.0.0.1:27017/streetSOS')
 .then(() => console.log('MongoDB connecté'))
-.catch(err => console.log(err));
+.catch(err => console.error(err));
+
+// Empeche les utilisateurs de poster un accident sans être connecté 
+function requireLogin(req, res, next) {
+    if (!req.session.username) {
+        return res.redirect('/log_in');
+    }
+    next();
+}
 
 //sert a définir comment on va décrir comment sera l'incident ici on utilise des string car on remplit du texte pour valider un incident à part pour la date
 const incidentSchema = new mongoose.Schema({
@@ -22,7 +34,17 @@ const incidentSchema = new mongoose.Schema({
   rapportePar: String
 });
 
+const userSchema = new mongoose.Schema({
+    username: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    nom: String,
+    prenom: String,
+    email: String
+});
+
 const Incident = mongoose.model('Incident', incidentSchema); //permet d'interagir avec la base de donnée
+
+const User = mongoose.model('User', userSchema);
 
 //voir exemple assistant --> on défini ejs comme app set
 app.set('view engine', 'ejs');
@@ -31,13 +53,22 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use(express.static(path.join(__dirname, 'static')));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(session({
+    secret: 'propre123',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 3600000 } // 1 hour
+}));
+
 //prendre css du fichier static 
 app.use(express.static(path.join(__dirname, 'static')));
 
 //home page avec récupération des incidents et on les trie par date du plus récent au plus ancien pour voir les nouveaux incidents
 //SI ON A LE TEMPS AJOUTER UNE PAGINATION POUR NE PAS SATURER LA PAGE
 app.get('/', async (req, res) => {
-  let user = null;
+  let user = req.session.username || null;
   let currentDate = new Date().toLocaleDateString(); //pour récup la date actuelle
 
   try {
@@ -50,25 +81,12 @@ app.get('/', async (req, res) => {
 });
 
 //on renvoit les pages pour ajouter incident
-app.get('/incident', (req, res) => {
-  let user = null;
-  res.render('incident', { user });
-});
-
-//on renvoit les pages pour s'inscrire
-app.get('/signUp', (req, res) => {
-  let user = null;
-  res.render('sign_up', { user });
-});
-
-//on renvoit les pages pour se connecter
-app.get('/signIn', (req, res) => {
-  let user = null;
-  res.render('log_in', { user });
+app.get('/incident', requireLogin, (req, res) => {
+    res.render('incident', { user: req.session.username });
 });
 
 //route post pour ajouter un incident
-app.post('/incident', async (req, res) => {
+app.post('/incident', requireLogin, async (req, res) => {
   try {
     const { sujet, temps, rue, date, codePostal, ville, description } = req.body; //on remplit l'incident avec toutes les données
 
@@ -80,7 +98,7 @@ app.post('/incident', async (req, res) => {
       codePostal,
       ville,
       description,
-      rapportePar: null
+      rapportePar: req.session.username
     });
 
     await nouvelIncident.save(); //on sauvegarde l'incident
@@ -91,6 +109,70 @@ app.post('/incident', async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log('Serveur démarré sur le port 3000'); //pour confirmer que le serveur démarre bien
-}); 
+// Page
+app.get('/sign_up', (req, res) => {
+    res.render('sign_up', { user: req.session.username, error: null });
+});
+
+const checkUserInput = require('./checkInput.js');
+
+app.post('/sign_up', async (req, res) => {
+    const { username, password, nom, prenom, email } = req.body;
+
+    if (!checkUserInput.isValidUsername(username)) {
+        return res.render('sign_up', { user: req.session.username, error: 'Le nom d’utilisateur doit avoir au moins 6 caractères' });
+    }
+
+    if (!checkUserInput.isValidPassword(password)) {
+        return res.render('sign_up', { user: req.session.username, error: 'Mot de passe invalide (7+ chars, majuscule, chiffre, symbole)' });
+    }
+
+    if (!checkUserInput.isValidEmail(email)) {
+        return res.render('sign_up', { user: req.session.username, error: 'Adresse email invalide' });
+    }
+    
+    try {
+        const existingUser = await User.findOne({ username });
+        if (existingUser) {
+            return res.render('sign_up', { user: req.session.username, error: 'Utilisateur déjà existant' });
+        }
+
+        const newUser = new User({ username, password, nom, prenom, email });
+        await newUser.save();
+
+        req.session.username = username; 
+        res.redirect('/');
+    } catch (err) {
+        console.error(err);
+        res.render('sign_up', { user: req.session.username, error: 'Erreur lors de la création du compte' });
+    }
+});
+
+
+// Page log_in 
+app.get('/log_in', (req, res) => {
+    res.render('log_in', { user: req.session.username, error: null });
+});
+
+app.post('/log_in', async (req, res) => {
+    const { username, password } = req.body;
+
+    try {
+        const user = await User.findOne({ username, password });
+        if (user) {
+            req.session.username = username;
+            res.redirect('/');
+        } else {
+            res.render('log_in', { user: req.session.username, error: 'Nom d’utilisateur ou mot de passe incorrect' });
+        }
+    } catch (err) {
+        console.error(err);
+        res.render('log_in', { user: req.session.username, error: 'Erreur lors de la connexion' });
+    }
+});
+
+module.exports = { app, User, Incident};
+
+if (require.main === module) {
+    app.listen(3000, () => console.log('Serveur démarré sur http://localhost:3000')); //pour confirmer que le serveur démarre bien
+}

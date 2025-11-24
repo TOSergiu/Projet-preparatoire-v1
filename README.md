@@ -18,14 +18,22 @@
 
 ### Description des fichiers:
 
-    -Home: La page principale du site, celle sur laquelle on arrive lorsque l'on accède au site. On y retrouve un bouton pour signaler un accident à Ottignies-Louvain-la-Neuve.
+    -Views:
 
-    -Incident: Le début de la page pour signaler les incidents à Ottignies-Louvain-la-Neuve
+        -Home: La page principale du site, celle sur laquelle on arrive lorsque l'on accède au site. On y retrouve un bouton pour signaler un accident à Ottignies-Louvain-la-Neuve.
 
-    -Log_in: Page pour se connecter à son compte
+        -Incident: Le début de la page pour signaler les incidents à Ottignies-Louvain-la-Neuve
 
-    -Sign_up: Page de Création de compte
+        -Log_in: Page pour se connecter à son compte
 
-    -Fonctionnalités communes entre les fichiers: Dans chaque page on retrouve un bouton en haut à droite pour accéder à la page de connexion ou de création de compte lorsque l'on est déjà sur la page de connexion. Dans chaque page à l'exception de la page Home, on peut retourner au début du site en cliquant le logo "Street SOS"
+        -Sign_up: Page de Création de compte
 
-## Technologies utilisées: HTML, CSS et Gherkin dans le futur nous utiliserons JavaScript, NodeJS et MongoDB
+        -Fonctionnalités communes entre les fichiers: Dans chaque page on retrouve un bouton en haut à droite pour accéder à la page de connexion ou de création de compte lorsque l'on est déjà sur la page de connexion. Dans chaque page à l'exception de la page Home, on peut retourner au début du site en cliquant le logo "Street SOS"
+
+    -checkInput.js: Création des Tests
+
+    -main.js: 
+
+    -user.test.js: Tests pour la validité du nom, mot de passe et l'email que l'utilisateur va choisir.
+
+## Technologies utilisées: HTML, CSS, JavaScript, NodeJS, MongoDB et Gherkin
