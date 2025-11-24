@@ -4,10 +4,12 @@ Les utilisateurs peuvent se connecter à leur compte ou en créer un nouveau
 
 Scénario: Nouvel utilisateur crée un compte
     Étant donné que l'utilisateur est sur la page de création de compte
-    Quand il crée un compte
-    Alors il est connecté
+    L'utilisateur remplit tous les champs pour créer un compte
+    L'utilisateur valide en appuyant sur le bouton pour créer un compte
+    Alors il vient de créer un compte et est connecté à ce compte
 
 Scénario: Un utilisateur existant se connecte
     Étant donné qu'il est sur la page de connexion
-    Quand il saisit ses identifiants et clique sur "Se connecter"
+    L'utilisateur saisit des identifiants corrects
+    L'utilisateur appuie sur le bouton pour se connecter
     Alors il est connecté

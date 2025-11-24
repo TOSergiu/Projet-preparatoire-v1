@@ -4,5 +4,7 @@ Les utilisateurs peuvent signaler un accident à Ottignies-Louvain-la-Neuve sur 
 
 Scénario: Un utilisateur signale un accident à Ottignies-Louvain-la-Neuve
     Étant donné que l'utilisateur est sur la page "Signaler un incident"
-    Quand il remplit le formulaire
+    L'utilisateur remplit tous les champs obligatoires pour signaler un incident
+    Lorsque l'utilisateur valide avec le bouton valider l'incident est signalé
     Alors l'accident est enregistré sur le site
+
